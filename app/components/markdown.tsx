@@ -19,6 +19,7 @@ import {
   useContext,
 } from "react";
 import { copyToClipboard, downloadAs, useWindowSize } from "../utils";
+import { normalizeMermaidCode } from "../utils/mermaid";
 import mermaid from "mermaid";
 import temml from "temml";
 import Locale from "../locales";
@@ -557,7 +558,7 @@ export function PreCode(props: { children: any; status?: boolean }) {
 
         if (lang === "mermaid") {
           setContentType("mermaid");
-          setPreviewContent(code);
+          setPreviewContent(normalizeMermaidCode(code));
         } else if (code.startsWith("<svg") || lang === "svg") {
           setContentType("svg");
           setPreviewContent(code);
