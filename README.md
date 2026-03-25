@@ -3,7 +3,7 @@
 <div align="center">
   <p><em>基于原项目 <a href="https://github.com/ChatGPTNextWeb/ChatGPT-Next-Web">ChatGPTNextWeb</a> 的增强版本</em></p>
   <p><strong>分歧节点：2.12.3，侧重维护 OpenAI 类型渠道</strong></p>
-  
+
   <p>
     <a href="#二开新增特性">特性</a> •
     <a href="#环境变量">配置</a> •
@@ -107,7 +107,7 @@
   - **输入区文本批量替换**
 
 ### 🐍 Python 代码在线运行
-- **一键运行 Python 代码** - 基于 [Piston](https://github.com/engineer-man/piston) 公开服务沙箱环境
+- **一键运行 Python 代码** - 基于 [Piston](https://github.com/engineer-man/piston) 沙箱环境（公共 API 已变更为需授权使用，详见下方说明）
   - 支持标准输入（stdin）- 自动检测 `input()` 调用并提示输入
   - 智能代码分析 - 检测无输出语句的代码并提示
   - 安全防护 - 自动检测并阻止危险操作（网络请求、文件操作、系统调用）
@@ -262,9 +262,13 @@
 | IMG_UPLOAD_RETURN_FORMAT   | 返回格式（default、full），设为 full 时返回完整 URL                                  | -      | 否   |
 
 ### Piston 代码执行功能（可选）
+
+> **注意：** Piston 官方公开服务已变更为需要授权 Token 才能使用（自 2026 年 2 月 15 日起）。需在 [EngineerMan Discord](https://discord.gg/engineerman) 申请授权，仅限非商业、低调用量的教育/实验/编程竞赛等场景。详见 [Piston Public API 说明](https://github.com/engineer-man/piston#public-api)。也可以[自行部署 Piston 实例](https://github.com/engineer-man/piston#after-system-dependencies-are-installed-clone-this-repository)，并将 `PISTON_API_URL` 指向你的服务地址。
+
 | 环境变量名称               | 描述                                                                                | 默认值                                      |
 |----------------------------|-------------------------------------------------------------------------------------|---------------------------------------------|
 | PISTON_API_URL             | Piston API 服务地址                                                                 | `https://emkc.org/api/v2/piston/execute`    |
+| PISTON_TOKEN               | Piston API 授权 Token（使用官方公开服务时必需）                                       | -                                           |
 | PISTON_TIMEOUT             | 代码执行超时时间（单位：毫秒）                                                       | `10000`                                     |
 
 ### 关键配置配置示例

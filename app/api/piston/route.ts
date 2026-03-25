@@ -4,6 +4,7 @@ import { ModelProvider } from "@/app/constant";
 
 const PISTON_API_URL =
   process.env.PISTON_API_URL || "https://emkc.org/api/v2/piston/execute";
+const PISTON_TOKEN = process.env.PISTON_TOKEN || "";
 const EXECUTION_TIMEOUT = Number(process.env.PISTON_TIMEOUT) || 10000; // 10 seconds
 
 // Dangerous patterns that should block execution
@@ -159,11 +160,16 @@ async function handle(req: NextRequest): Promise<NextResponse<PistonResponse>> {
     const timeoutId = setTimeout(() => controller.abort(), EXECUTION_TIMEOUT);
 
     try {
+      const headers: Record<string, string> = {
+        "Content-Type": "application/json",
+      };
+      if (PISTON_TOKEN) {
+        headers["Authorization"] = PISTON_TOKEN;
+      }
+
       const response = await fetch(PISTON_API_URL, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers,
         body: JSON.stringify(pistonPayload),
         signal: controller.signal,
       });
